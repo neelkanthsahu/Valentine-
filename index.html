@@ -130,68 +130,90 @@
   <div class="hearts" id="hearts"></div>
 
   <script>
-    // Get name from URL
-    const params = new URLSearchParams(window.location.search);
-    const name = params.get("name");
+  /* ============================
+     CUSTOM NAME FROM URL
+     ============================ */
+  const params = new URLSearchParams(window.location.search);
+  const receiverName = params.get("name");
 
-    if (name) {
-      document.getElementById("greeting").innerText = `Hey ${name} 💕`;
+  const greeting = document.getElementById("greeting");
+
+  if (receiverName && receiverName.trim() !== "") {
+    greeting.innerText = `Hey ${receiverName} 💕`;
+  } else {
+    greeting.innerText = "Hey Love 💕";
+  }
+
+  /* ============================
+     ELEMENT REFERENCES
+     ============================ */
+  const noBtn = document.getElementById("noBtn");
+  const yesBtn = document.getElementById("yesBtn");
+  const loveMsg = document.getElementById("loveMsg");
+  const hearts = document.getElementById("hearts");
+
+  /* ============================
+     NO BUTTON RUN AWAY 😄
+     ============================ */
+  noBtn.addEventListener("mouseover", () => {
+    const x = Math.random() * (window.innerWidth - 120);
+    const y = Math.random() * (window.innerHeight - 120);
+    noBtn.style.left = x + "px";
+    noBtn.style.top = y + "px";
+  });
+
+  /* ============================
+     YES BUTTON MAGIC 💖
+     ============================ */
+  yesBtn.addEventListener("click", () => {
+    yesBtn.style.display = "none";
+    noBtn.style.display = "none";
+
+    loveMsg.style.display = "block";
+    loveMsg.innerHTML = "Processing your YES... 😏💓";
+
+    setTimeout(() => {
+      loveMsg.innerHTML = "⚠️ Warning: You just unlocked unlimited love 💘";
+    }, 1500);
+
+    setTimeout(() => {
+      loveMsg.innerHTML = "Side effects may include smiling nonstop 😄❤️";
+    }, 3000);
+
+    setTimeout(() => {
+      loveMsg.innerHTML = `
+        🎉 Congratulations ${receiverName ?? "Love"} 🥰 <br><br>
+        You are officially my Valentine 💖<br><br>
+        <strong>
+          I promise to annoy you, love you,<br>
+          and choose you every single day 💕
+        </strong>
+        <div class="signature">— Yours forever, Neel ❤️</div>
+      `;
+      createHearts();
+      createFunnyEmojis();
+    }, 5000);
+  });
+
+  /* ============================
+     HEARTS ANIMATION ❤️
+     ============================ */
+  function createHearts() {
+    for (let i = 0; i < 30; i++) {
+      const heart = document.createElement("span");
+      heart.innerHTML = "❤️";
+      heart.style.left = Math.random() * 100 + "vw";
+      heart.style.animationDuration = 3 + Math.random() * 3 + "s";
+      hearts.appendChild(heart);
+
+      setTimeout(() => heart.remove(), 6000);
     }
+  }
 
-    const noBtn = document.getElementById("noBtn");
-    const yesBtn = document.getElementById("yesBtn");
-    const loveMsg = document.getElementById("loveMsg");
-    const hearts = document.getElementById("hearts");
-
-    noBtn.addEventListener("mouseover", () => {
-      const x = Math.random() * (window.innerWidth - 120);
-      const y = Math.random() * (window.innerHeight - 120);
-      noBtn.style.left = x + "px";
-      noBtn.style.top = y + "px";
-    });
-
-    yesBtn.addEventListener("click", () => {
-      yesBtn.style.display = "none";
-      noBtn.style.display = "none";
-
-      loveMsg.style.display = "block";
-      loveMsg.innerHTML = "Processing your YES... 😏💓";
-
-      setTimeout(() => {
-        loveMsg.innerHTML = "Warning ⚠️ You just unlocked unlimited love 💘";
-      }, 1500);
-
-      setTimeout(() => {
-        loveMsg.innerHTML = "Side effects may include smiling nonstop 😄❤️";
-      }, 3000);
-
-      setTimeout(() => {
-        loveMsg.innerHTML = `
-          Congratulations 🎉🥰 <br>
-          You are officially my Valentine 💖<br><br>
-          <strong>I promise to annoy you, love you,<br>
-          and choose you every single day 💕</strong>
-          <div class="signature">— Yours forever, Neel ❤️</div>
-        `;
-        createHearts();
-        createFunnyEmojis();
-      }, 5000);
-    });
-
-
-    function createHearts() {
-      for (let i = 0; i < 30; i++) {
-        const heart = document.createElement("span");
-        heart.innerHTML = "❤️";
-        heart.style.left = Math.random() * 100 + "vw";
-        heart.style.animationDuration = 3 + Math.random() * 3 + "s";
-        hearts.appendChild(heart);
-
-        setTimeout(() => heart.remove(), 6000);
-      }
-    }
-
-    function createFunnyEmojis() {
+  /* ============================
+     FUNNY EMOJI BLAST 😂💖
+     ============================ */
+  function createFunnyEmojis() {
     const emojis = ["😂", "🥰", "😍", "😘", "💖", "😄", "❤️"];
     for (let i = 0; i < 25; i++) {
       const emoji = document.createElement("span");
@@ -205,8 +227,8 @@
       setTimeout(() => emoji.remove(), 5000);
     }
   }
+</script>
 
-  </script>
 
 </body>
 </html>
