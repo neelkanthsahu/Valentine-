@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>For You ❤️</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      height: 100vh;
+      background: linear-gradient(135deg, #ff758c, #ff7eb3);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+    }
+
+    .container {
+      text-align: center;
+      background: rgba(255, 255, 255, 0.2);
+      padding: 40px;
+      border-radius: 20px;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+      animation: pop 1s ease;
+      max-width: 90%;
+    }
+
+    @keyframes pop {
+      from { transform: scale(0.7); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+    h1 {
+      font-size: 2.3rem;
+      color: #fff;
+      margin-bottom: 15px;
+    }
+
+    p {
+      color: #fff;
+      font-size: 1.2rem;
+      margin-bottom: 25px;
+    }
+
+    .buttons {
+      position: relative;
+      height: 60px;
+    }
+
+    button {
+      padding: 12px 30px;
+      font-size: 1rem;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    #yesBtn {
+      background: #ff2e63;
+      color: white;
+      margin-right: 15px;
+    }
+
+    #yesBtn:hover {
+      transform: scale(1.1);
+      background: #ff165d;
+    }
+
+    #noBtn {
+      background: white;
+      color: #ff2e63;
+      position: absolute;
+    }
+
+    .message {
+      display: none;
+      color: #fff;
+      font-size: 1.6rem;
+      margin-top: 20px;
+      animation: pop 0.8s ease;
+    }
+
+    .signature {
+      margin-top: 15px;
+      font-size: 1.1rem;
+      opacity: 0.9;
+    }
+
+    .hearts span {
+      position: absolute;
+      font-size: 20px;
+      animation: float 5s linear infinite;
+    }
+
+    @keyframes float {
+      0% { transform: translateY(0); opacity: 1; }
+      100% { transform: translateY(-100vh); opacity: 0; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1 id="greeting">Hey Love 💕</h1>
+    <p>I have something special to ask you…</p>
+
+    <h1>Will you be my Valentine? 💖</h1>
+
+    <div class="buttons">
+      <button id="yesBtn">Yes 😍</button>
+      <button id="noBtn">No 🙈</button>
+    </div>
+
+    <div class="message" id="loveMsg">
+      Yayyy!! 💘🥰<br>
+      You just made me the happiest person ❤️
+      <div class="signature">— Yours, Neel 💞</div>
+    </div>
+  </div>
+
+  <div class="hearts" id="hearts"></div>
+
+  <script>
+    // Get name from URL
+    const params = new URLSearchParams(window.location.search);
+    const name = params.get("name");
+
+    if (name) {
+      document.getElementById("greeting").innerText = `Hey ${name} 💕`;
+    }
+
+    const noBtn = document.getElementById("noBtn");
+    const yesBtn = document.getElementById("yesBtn");
+    const loveMsg = document.getElementById("loveMsg");
+    const hearts = document.getElementById("hearts");
+
+    noBtn.addEventListener("mouseover", () => {
+      const x = Math.random() * (window.innerWidth - 120);
+      const y = Math.random() * (window.innerHeight - 120);
+      noBtn.style.left = x + "px";
+      noBtn.style.top = y + "px";
+    });
+
+    yesBtn.addEventListener("click", () => {
+      loveMsg.style.display = "block";
+      createHearts();
+    });
+
+    function createHearts() {
+      for (let i = 0; i < 30; i++) {
+        const heart = document.createElement("span");
+        heart.innerHTML = "❤️";
+        heart.style.left = Math.random() * 100 + "vw";
+        heart.style.animationDuration = 3 + Math.random() * 3 + "s";
+        hearts.appendChild(heart);
+
+        setTimeout(() => heart.remove(), 6000);
+      }
+    }
+  </script>
+
+</body>
+</html>
