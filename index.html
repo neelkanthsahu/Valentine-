@@ -151,9 +151,33 @@
     });
 
     yesBtn.addEventListener("click", () => {
+      yesBtn.style.display = "none";
+      noBtn.style.display = "none";
+
       loveMsg.style.display = "block";
-      createHearts();
+      loveMsg.innerHTML = "Processing your YES... 😏💓";
+
+      setTimeout(() => {
+        loveMsg.innerHTML = "Warning ⚠️ You just unlocked unlimited love 💘";
+      }, 1500);
+
+      setTimeout(() => {
+        loveMsg.innerHTML = "Side effects may include smiling nonstop 😄❤️";
+      }, 3000);
+
+      setTimeout(() => {
+        loveMsg.innerHTML = `
+          Congratulations 🎉🥰 <br>
+          You are officially my Valentine 💖<br><br>
+          <strong>I promise to annoy you, love you,<br>
+          and choose you every single day 💕</strong>
+          <div class="signature">— Yours forever, Neel ❤️</div>
+        `;
+        createHearts();
+        createFunnyEmojis();
+      }, 5000);
     });
+
 
     function createHearts() {
       for (let i = 0; i < 30; i++) {
@@ -166,6 +190,22 @@
         setTimeout(() => heart.remove(), 6000);
       }
     }
+
+    function createFunnyEmojis() {
+    const emojis = ["😂", "🥰", "😍", "😘", "💖", "😄", "❤️"];
+    for (let i = 0; i < 25; i++) {
+      const emoji = document.createElement("span");
+      emoji.innerHTML = emojis[Math.floor(Math.random() * emojis.length)];
+      emoji.style.position = "absolute";
+      emoji.style.left = Math.random() * 100 + "vw";
+      emoji.style.fontSize = "22px";
+      emoji.style.animation = "float 4s linear infinite";
+      document.body.appendChild(emoji);
+
+      setTimeout(() => emoji.remove(), 5000);
+    }
+  }
+
   </script>
 
 </body>
